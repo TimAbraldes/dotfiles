@@ -160,15 +160,17 @@ let g:jsx_ext_required = 0 " Allow jsx syntax highlighting/indenting in js files
 " autocmd! BufWritePost,BufEnter * Neomake
 
 " ale
-" let g:ale_linters = { 'javascript': ['semistandard'], }
-let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-let g:ale_echo_msg_error_str = 'Error'
-let g:ale_echo_msg_warning_str = '⚠'
-let g:ale_echo_msg_format = '[%linter%] %severity%: %s'
-let g:ale_sign_column_always = 1
+let g:ale_linters = { 'javascript': ['standard'], }
 let g:ale_javascript_standard_executable = 'semistandard'
 let g:ale_javascript_standard_use_global = 1
-let g:ale_javascript_eslint_use_global = 1
+
+" let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+" let g:ale_echo_msg_error_str = 'Error'
+" let g:ale_echo_msg_warning_str = '⚠'
+let g:ale_echo_msg_format = '[%linter%] %severity%: %s'
+
+let g:ale_sign_column_always = 1
+" let g:ale_open_list = 1 " open the location list whenever it has stuff in it
 
 " ---------
 "  Session
