@@ -54,6 +54,7 @@ set smartcase                   " no ignorecase if Uppercase char present
 if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 endif
+
 " Suggested in the help
 " Remap Alt+{h,j,k,l} to navigate between windows no matter if they are
 " displaying a normal buffer or a terminal buffer in terminal mode
@@ -61,10 +62,14 @@ inoremap <A-h> <Esc><C-w>h
 inoremap <A-j> <Esc><C-w>j
 inoremap <A-k> <Esc><C-w>k
 inoremap <A-l> <Esc><C-w>l
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-l> <C-\><C-n><C-w>l
+
+if has('nvim')
+  tnoremap <A-h> <C-\><C-n><C-w>h
+  tnoremap <A-j> <C-\><C-n><C-w>j
+  tnoremap <A-k> <C-\><C-n><C-w>k
+  tnoremap <A-l> <C-\><C-n><C-w>l
+endif
+
 nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
