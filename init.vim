@@ -55,6 +55,8 @@ if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 endif
 
+inoremap jj <Esc>
+
 " Suggested in the help
 " Remap Alt+{h,j,k,l} to navigate between windows no matter if they are
 " displaying a normal buffer or a terminal buffer in terminal mode
