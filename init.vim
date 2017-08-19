@@ -163,9 +163,9 @@ let g:jsx_ext_required = 0 " Allow jsx syntax highlighting/indenting in js files
 
 " ale
 let g:ale_linters = { 'javascript': ['standard'], }
+let g:ale_javascript_standard_options = '--parser babel-eslint'
 " let g:ale_javascript_standard_executable = 'semistandard'
 " let g:ale_javascript_standard_use_global = 1
-" let g:ale_javascript_standard_options = '--parser babel-eslint'
 
 " let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 " let g:ale_echo_msg_error_str = 'Error'
