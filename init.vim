@@ -32,7 +32,7 @@ set sidescrolloff=5             " start scrolling when the cursor is this far fr
 " show
 "
 set ruler                       " show the current row and column
-set number                      " show line numbers
+set number relativenumber       " show line numbers, relative
 set nowrap
 set cursorline
 set showcmd                     " display incomplete commands
@@ -156,24 +156,28 @@ let g:jsx_ext_required = 0 " Allow jsx syntax highlighting/indenting in js files
 " let g:airline#extensions#default#layout = [ [ 'a', 'b', 'c' ], [ 'x', 'y', 'z', 'error', 'warning' ], ]
 " au FileType javascript let b:airline_whitespace_disabled = 1
 
-" neomake
-" let g:neomake_javascript_enabled_makers = ['semistandard']
-" let g:neomake_jsx_enabled_makers = ['semistandard']
-" autocmd! BufWritePost,BufEnter * Neomake
-
 " ale
-let g:ale_linters = { 'javascript': ['standard'], }
-let g:ale_javascript_standard_options = '--parser babel-eslint'
+" let g:ale_linters = { 'javascript': ['eslint'], }
+" let g:ale_fixers = { 'javascript': ['prettier'] }
+
+let g:ale_javascript_prettier_options = '--print-width 80 --single-quote --trailing-comma es5 --write'
+" let g:ale_javascript_standard_use_global = 1
+
+" let g:ale_javascript_eslint_options = ''
+" let g:ale_javascript_eslint_use_global = 1
+
+" let g:ale_javascript_standard_options = '--parser babel-eslint'
 " let g:ale_javascript_standard_executable = 'semistandard'
 " let g:ale_javascript_standard_use_global = 1
 
-" let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 " let g:ale_echo_msg_error_str = 'Error'
+" let g:ale_echo_msg_format = '[%linter%] %severity%: %s'
 " let g:ale_echo_msg_warning_str = '⚠'
-let g:ale_echo_msg_format = '[%linter%] %severity%: %s'
+" let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 
-let g:ale_sign_column_always = 1
+" let g:ale_fix_on_save = 1
 " let g:ale_open_list = 1 " open the location list whenever it has stuff in it
+let g:ale_sign_column_always = 1
 
 " ---------
 "  Session
