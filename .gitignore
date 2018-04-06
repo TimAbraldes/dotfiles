@@ -1,5 +1,6 @@
 .*
 !.gitignore
 *.vim
+!ctrlp.vim
 !init.vim
 *.log
