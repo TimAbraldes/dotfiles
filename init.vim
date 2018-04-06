@@ -14,13 +14,17 @@ set directory=~/.local/share/nvim/swap " Keep swap files in this location
 "
 " au(tocmd)
 "
-" When a new file is opened (BufNewFile) or when an existing file is opened (BufRead)
-" that matches the pattern Enable syntax highlighting
-au BufNewFile,BufRead *.jsm set filetype=javascript
-au BufNewFile,BufRead *.ts set filetype=javascript
-au BufNewFile,BufRead *.jpp set filetype=java
-" When entering a terminal buffer, enter insert mode
-" au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+if has('autocmd')
+  filetype plugin indent on
+
+  " When a new file is opened (BufNewFile) or when an existing file is opened (BufRead)
+  " that matches the pattern Enable syntax highlighting
+  au BufNewFile,BufRead *.jsm set filetype=javascript
+  au BufNewFile,BufRead *.ts set filetype=javascript
+  au BufNewFile,BufRead *.jpp set filetype=java
+  " When entering a terminal buffer, enter insert mode
+  " au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+endif
 
 "
 " movement
@@ -38,7 +42,7 @@ set cursorline
 set showcmd                     " display incomplete commands
 set showmode                    " display current modes
 set list listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-colorscheme desert
+colorscheme blue
 
 "
 " search
@@ -64,18 +68,19 @@ inoremap <A-h> <Esc><C-w>h
 inoremap <A-j> <Esc><C-w>j
 inoremap <A-k> <Esc><C-w>k
 inoremap <A-l> <Esc><C-w>l
-
-if has('nvim')
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+if has('nvim') || exists("g:gui_oni")
   tnoremap <A-h> <C-\><C-n><C-w>h
   tnoremap <A-j> <C-\><C-n><C-w>j
   tnoremap <A-k> <C-\><C-n><C-w>k
   tnoremap <A-l> <C-\><C-n><C-w>l
 endif
 
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+" Map NERDTree
+map <C-N> :NERDTreeToggle<cr>
 
 " tab
 set expandtab  " expand tabs to spaces
@@ -95,10 +100,12 @@ set ffs=unix,dos,mac
 " set spell
 " set spelllang=en_us
 
-set completeopt=longest,menu
-set wildmenu                           " show a navigable menu for tab completion"
-set wildmode=full
-set wildignore=*.o,*~,*.pyc,*.class
+if !exists("g:gui_oni")
+  set completeopt=longest,menu
+  set wildmenu                           " show a navigable menu for tab completion"
+  set wildmode=full
+  set wildignore=*.o,*~,*.pyc,*.class
+endif
 
 set backspace=indent,eol,start  " make backspace key work the way it should
 " Allow the following keys to wrap the cursor
@@ -111,10 +118,6 @@ set backspace=indent,eol,start  " make backspace key work the way it should
 " l = l
 " h = h
 set whichwrap=b,s,<,>,[,],l,h
-
-if has('autocmd')
-  filetype plugin indent on
-endif
 
 if has('syntax')
   syntax enable
@@ -145,20 +148,25 @@ endif
 "  Extensions
 " ---------
 "
+" --
 " vim-jsx
+" --
 let g:jsx_ext_required = 0 " Allow jsx syntax highlighting/indenting in js files
 
+" --
 " airline
-"
+" --
 " let g:airline_section_error = '%{ALEGetStatusLine()}'
 " let g:airline_section_warning = ''
 " let g:airline_extensions = ['branch']
 " let g:airline#extensions#default#layout = [ [ 'a', 'b', 'c' ], [ 'x', 'y', 'z', 'error', 'warning' ], ]
 " au FileType javascript let b:airline_whitespace_disabled = 1
 
+" --
 " ale
+" --
 " let g:ale_linters = { 'javascript': ['eslint'], }
-" let g:ale_fixers = { 'javascript': ['prettier'] }
+let g:ale_fixers = { 'javascript': ['prettier'] }
 
 let g:ale_javascript_prettier_options = '--print-width 80 --single-quote --trailing-comma es5 --write'
 " let g:ale_javascript_standard_use_global = 1
@@ -175,9 +183,14 @@ let g:ale_javascript_prettier_options = '--print-width 80 --single-quote --trail
 " let g:ale_echo_msg_warning_str = '⚠'
 " let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 
-" let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 1
 " let g:ale_open_list = 1 " open the location list whenever it has stuff in it
 let g:ale_sign_column_always = 1
+
+" --
+" ctrl p
+" --
+let g:ctrlp_custom_ignore = { 'dir':  'node_modules' }
 
 " ---------
 "  Session
