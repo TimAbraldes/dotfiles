@@ -42,7 +42,7 @@ set cursorline
 set showcmd                     " display incomplete commands
 set showmode                    " display current modes
 set list listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-colorscheme default
+colorscheme elflord
 
 "
 " search
@@ -161,42 +161,37 @@ let g:jsx_ext_required = 0 " Allow jsx syntax highlighting/indenting in js files
 " --
 " airline
 " --
-" let g:airline_section_error = '%{ALEGetStatusLine()}'
-" let g:airline_section_warning = ''
-" let g:airline_extensions = ['branch']
-" let g:airline#extensions#default#layout = [ [ 'a', 'b', 'c' ], [ 'x', 'y', 'z', 'error', 'warning' ], ]
-" au FileType javascript let b:airline_whitespace_disabled = 1
+let g:airline#extensions#ale#enabled = 1
+au FileType javascript let b:airline_whitespace_disabled = 1
 
 " --
 " ale
 " --
 " Limit linters used for JavaScript.
-let g:ale_linters = { 'javascript': ['flow'] }
+" let g:ale_linters = { 'javascript': ['flow'] }
 let g:ale_fixers = { 'javascript': ['prettier'] }
 
 " let g:ale_echo_msg_error_str = '⨉'
 " let g:ale_echo_msg_warning_str = '⚠'
-" let g:ale_echo_msg_format = '[%linter%] %severity%: %s'
+let g:ale_echo_msg_format = '[%linter%] %severity%: %s'
 
-" let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 
 let g:ale_sign_error = 'X' " could use emoji
 let g:ale_sign_warning = '⚠' " could use emoji
 
 " let g:ale_open_list = 1 " open the location list whenever it has stuff in it
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 let g:ale_sign_column_always = 1
 
 " highlight clear ALEErrorSign " otherwise uses error bg color (typically red)
 " highlight clear ALEWarningSign " otherwise uses error bg color (typically red)
 
-let g:ale_statusline_format = ['X %d', '? %d', '']
-
 " Map keys to navigate between lines with errors and warnings.
 nnoremap <leader>an :ALENextWrap<cr>
 nnoremap <leader>ap :ALEPreviousWrap<cr>
 
-let g:ale_javascript_prettier_options = '--print-width 80 --single-quote --trailing-comma es5 --write'
+" let g:ale_javascript_prettier_options = '--print-width 80 --single-quote --trailing-comma es5 --write'
 
 " let g:ale_javascript_standard_use_global = 1
 " let g:ale_javascript_standard_options = '--parser babel-eslint'
