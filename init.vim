@@ -1,7 +1,16 @@
 " Load pathogen from the cloned source
 " and run it
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
+runtime plugins/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect('plugins/bundle/{}')
+
+python3 from powerline.vim import setup as powerline_setup
+python3 powerline_setup()
+python3 del powerline_setup
+set laststatus=2
+
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 set history=1000 " How many commands to remember
 set tabpagemax=50 " Max number of tab pages to open (50 is default)
@@ -42,7 +51,7 @@ set cursorline
 set showcmd                     " display incomplete commands
 set showmode                    " display current modes
 set list listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-colorscheme elflord
+colorscheme tender
 
 "
 " search
@@ -50,6 +59,7 @@ colorscheme elflord
 set incsearch
 set ignorecase
 set smartcase                   " no ignorecase if Uppercase char present
+set hls
 
 "
 " Key mappings
@@ -157,12 +167,6 @@ let g:javascript_plugin_flow = 1 " Enable Flow highlighting
 " vim-jsx
 " --
 let g:jsx_ext_required = 0 " Allow jsx syntax highlighting/indenting in js files
-
-" --
-" airline
-" --
-let g:airline#extensions#ale#enabled = 1
-au FileType javascript let b:airline_whitespace_disabled = 1
 
 " --
 " ale

@@ -1,27 +1,27 @@
 [submodule "bundle/ale"]
-	path = bundle/ale
+	path = plugins/bundle/ale
 	url = https://github.com/w0rp/ale.git
-[submodule "bundle/vim-airline"]
-	path = bundle/vim-airline
-	url = https://github.com/vim-airline/vim-airline.git
 [submodule "bundle/vim-fugitive"]
-	path = bundle/vim-fugitive
+	path = plugins/bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "bundle/vim-javascript"]
-	path = bundle/vim-javascript
-	url = https://github.com/pangloss/vim-javascript.git
-[submodule "bundle/vim-jsx"]
-	path = bundle/vim-jsx
-	url = https://github.com/mxw/vim-jsx.git
 [submodule "bundle/vim-pathogen"]
-	path = bundle/vim-pathogen
+	path = plugins/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen.git
 [submodule "bundle/nerdtree"]
-	path = bundle/nerdtree
+	path = plugins/bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
 [submodule "ctrlp.vim"]
 	path = ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
 [submodule "bundle/ctrlp.vim"]
-	path = bundle/ctrlp.vim
+	path = plugins/bundle/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
+[submodule "plugins/fonts"]
+	path = plugins/fonts
+	url = https://github.com/powerline/fonts.git
+[submodule "plugins/bundle/tender.vim"]
+	path = plugins/bundle/tender.vim
+	url = https://github.com/jacoborus/tender.vim.git
+[submodule "plugins/bundle/vim-polyglot"]
+	path = plugins/bundle/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot.git
