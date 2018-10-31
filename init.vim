@@ -1,3 +1,7 @@
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
 " Load pathogen from the cloned source
 " and run it
 runtime plugins/vim-pathogen/autoload/pathogen.vim
@@ -7,10 +11,6 @@ python3 from powerline.vim import setup as powerline_setup
 python3 powerline_setup()
 python3 del powerline_setup
 set laststatus=2
-
-set termguicolors
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 set history=1000 " How many commands to remember
 set tabpagemax=50 " Max number of tab pages to open (50 is default)
@@ -28,9 +28,9 @@ if has('autocmd')
 
   " When a new file is opened (BufNewFile) or when an existing file is opened (BufRead)
   " that matches the pattern Enable syntax highlighting
-  au BufNewFile,BufRead *.jsm set filetype=javascript
-  au BufNewFile,BufRead *.ts set filetype=javascript
-  au BufNewFile,BufRead *.jpp set filetype=java
+  " au BufNewFile,BufRead *.jsm set filetype=javascript
+  " au BufNewFile,BufRead *.ts set filetype=javascript
+  " au BufNewFile,BufRead *.jpp set filetype=java
   " When entering a terminal buffer, enter insert mode
   " au BufEnter * if &buftype == 'terminal' | :startinsert | endif
 endif
@@ -51,7 +51,7 @@ set cursorline
 set showcmd                     " display incomplete commands
 set showmode                    " display current modes
 set list listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-colorscheme tender
+colorscheme onedark
 
 "
 " search
@@ -59,7 +59,7 @@ colorscheme tender
 set incsearch
 set ignorecase
 set smartcase                   " no ignorecase if Uppercase char present
-set hls
+set hlsearch
 
 "
 " Key mappings
@@ -135,6 +135,7 @@ endif
 
 set formatoptions+=j " Delete comment character when joining commented lines
 
+" Not sure what this does
 runtime! macros/matchit.vim
 
 set complete-=i      " Don't include included files in autocomplete options
@@ -221,6 +222,6 @@ set sessionoptions-=options " Don't let mksession store 'all options and mapping
 "  Terminal
 " ---------
 "
-let g:terminal_scrollback_buffer_size = 10000
+let g:terminal_scrollback_buffer_size = 100000
 
 " vim:set ft=vim et sw=2:
