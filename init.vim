@@ -51,7 +51,8 @@ set cursorline
 set showcmd                     " display incomplete commands
 set showmode                    " display current modes
 set list listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-colorscheme onedark
+colorscheme solarized
+set background=dark
 
 "
 " search
