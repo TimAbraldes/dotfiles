@@ -25,3 +25,6 @@
 [submodule "plugins/bundle/vim-colors-solarized"]
 	path = pack/plugins/start/vim-colors-solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
+[submodule "pack/plugins/start/gruvbox"]
+	path = pack/plugins/start/gruvbox
+	url = https://github.com/morhetz/gruvbox.git
