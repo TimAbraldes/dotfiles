@@ -46,8 +46,8 @@ set cursorline
 set showcmd                     " display incomplete commands
 set showmode                    " display current modes
 set list listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-set background=dark
-colorscheme gruvbox
+set background=light
+colorscheme solarized8_high
 
 "
 " search
@@ -107,9 +107,9 @@ set ffs=unix,dos,mac
 " set spelllang=en_us
 
 if !exists("g:gui_oni")
-  set completeopt=longest,menu
-  set wildmenu                           " show a navigable menu for tab completion"
-  set wildmode=full
+  set completeopt=longest,menu,preview
+  set wildmenu&
+  set wildmode=list,full
   set wildignore=*.o,*~,*.pyc,*.class
 endif
 
