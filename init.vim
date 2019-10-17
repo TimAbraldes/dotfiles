@@ -1,3 +1,8 @@
+set mouse=a
+
+"
+" Colors
+"
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -46,7 +51,7 @@ set showcmd                     " display incomplete commands
 set showmode                    " display current modes
 set list listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 set background=light
-colorscheme solarized8_high
+colorscheme solarized8
 
 "
 " search
