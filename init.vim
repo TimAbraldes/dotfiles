@@ -203,7 +203,7 @@ nnoremap <leader>ap :ALEPreviousWrap<cr>
 " let g:ale_javascript_standard_executable = 'semistandard'
 " let g:ale_javascript_standard_use_global = 1
 
-" let g:ale_javascript_eslint_options = ''
+" let g:ale_javascript_eslint_options = '--ext .ts,.js,.tsx,.jsx'
 " let g:ale_javascript_eslint_use_global = 1
 
 " --
