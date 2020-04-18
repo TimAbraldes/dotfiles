@@ -1,0 +1,36 @@
+[submodule "bundle/ale"]
+	path = pack/plugins/start/ale
+	url = https://github.com/w0rp/ale.git
+[submodule "bundle/vim-fugitive"]
+	path = pack/plugins/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "bundle/nerdtree"]
+	path = pack/plugins/start/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule "ctrlp.vim"]
+	path = ctrlp.vim
+	url = https://github.com/ctrlpvim/ctrlp.vim.git
+[submodule "bundle/ctrlp.vim"]
+	path = pack/plugins/start/ctrlp.vim
+	url = https://github.com/ctrlpvim/ctrlp.vim.git
+[submodule "plugins/bundle/tender.vim"]
+	path = pack/plugins/start/tender.vim
+	url = https://github.com/jacoborus/tender.vim.git
+[submodule "plugins/bundle/vim-polyglot"]
+	path = pack/plugins/start/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot.git
+[submodule "plugins/bundle/vim-colors-solarized"]
+	path = pack/plugins/start/vim-colors-solarized
+	url = git://github.com/altercation/vim-colors-solarized.git
+[submodule "pack/plugins/start/gruvbox"]
+	path = pack/plugins/start/gruvbox
+	url = https://github.com/morhetz/gruvbox.git
+[submodule "pack/plugins/start/vim-solarized8"]
+	path = pack/plugins/start/vim-solarized8
+	url = https://github.com/lifepillar/vim-solarized8.git
+[submodule "pack/plugins/start/vim-airline"]
+	path = pack/plugins/start/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git
+[submodule "pack/plugins/start/onedark.vim"]
+	path = pack/plugins/start/onedark.vim
+	url = https://github.com/joshdick/onedark.vim.git
