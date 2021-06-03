@@ -50,7 +50,7 @@ set cursorline
 set showcmd                     " display incomplete commands
 set showmode                    " display current modes
 set list listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-set background=light
+set background=dark
 colorscheme solarized8
 
 "
