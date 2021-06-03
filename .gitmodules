@@ -19,9 +19,6 @@
 [submodule "tmux/plugins/tmux-net-speed"]
 	path = tmux/plugins/tmux-net-speed
 	url = https://github.com/tmux-plugins/tmux-net-speed.git
-[submodule "nvim/bundle/ale"]
-	path = nvim/pack/plugins/start/ale
-	url = https://github.com/w0rp/ale.git
 [submodule "nvim/bundle/vim-fugitive"]
 	path = nvim/pack/plugins/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
@@ -55,3 +52,6 @@
 [submodule "nvim/pack/plugins/start/onedark.vim"]
 	path = nvim/pack/plugins/start/onedark.vim
 	url = https://github.com/joshdick/onedark.vim.git
+[submodule "nvim/pack/plugins/start/coc.nvim"]
+	path = nvim/pack/plugins/start/coc.nvim
+	url = git@github.com:neoclide/coc.nvim.git
