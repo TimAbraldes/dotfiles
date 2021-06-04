@@ -22,24 +22,12 @@
 [submodule "nvim/bundle/vim-fugitive"]
 	path = nvim/pack/plugins/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "nvim/bundle/nerdtree"]
-	path = nvim/pack/plugins/start/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
 [submodule "nvim/ctrlp.vim"]
 	path = nvim/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
 [submodule "nvim/bundle/ctrlp.vim"]
 	path = nvim/pack/plugins/start/ctrlp.vim
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
-[submodule "nvim/plugins/bundle/tender.vim"]
-	path = nvim/pack/plugins/start/tender.vim
-	url = https://github.com/jacoborus/tender.vim.git
-[submodule "nvim/plugins/bundle/vim-polyglot"]
-	path = nvim/pack/plugins/start/vim-polyglot
-	url = https://github.com/sheerun/vim-polyglot.git
-[submodule "nvim/plugins/bundle/vim-colors-solarized"]
-	path = nvim/pack/plugins/start/vim-colors-solarized
-	url = git://github.com/altercation/vim-colors-solarized.git
 [submodule "nvim/pack/plugins/start/gruvbox"]
 	path = nvim/pack/plugins/start/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
@@ -55,3 +43,9 @@
 [submodule "nvim/pack/plugins/start/coc.nvim"]
 	path = nvim/pack/plugins/start/coc.nvim
 	url = git@github.com:neoclide/coc.nvim.git
+[submodule "nvim/pack/plugins/start/molokai"]
+	path = nvim/pack/plugins/start/molokai
+	url = git@github.com:tomasr/molokai.git
+[submodule "nvim/pack/plugins/start/dracula"]
+	path = nvim/pack/plugins/start/dracula
+	url = git@github.com:dracula/vim.git
