@@ -261,8 +261,6 @@ if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 endif
 
-inoremap jj <Esc>
-
 " Suggested in the help
 " Remap Alt+{h,j,k,l} to navigate between windows no matter if they are
 " displaying a normal buffer or a terminal buffer in terminal mode
@@ -369,18 +367,5 @@ set sessionoptions-=options " Don't let mksession store 'all options and mapping
 " ---------
 "
 let g:terminal_scrollback_buffer_size = 100000
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 " vim:set ft=vim et sw=2:
