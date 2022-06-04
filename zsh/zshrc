@@ -11,3 +11,5 @@ awk 'BEGIN{
   }
     printf "\n";
 }'
+
+VI_MODE_SET_CURSOR=true
