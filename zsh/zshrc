@@ -14,6 +14,6 @@ awk 'BEGIN{
 
 VI_MODE_SET_CURSOR=true
 
-export TIM__POWERLINE_LOCATION=`pip show powerline-status | grep "Location: " | sed "s/Location: \(.*\)$/\1/"`
+export TIM__POWERLINE_LOCATION=`pip3 show powerline-status | grep "Location: " | sed "s/Location: \(.*\)$/\1/"`
 
 . $TIM__POWERLINE_LOCATION/powerline/bindings/zsh/powerline.zsh
