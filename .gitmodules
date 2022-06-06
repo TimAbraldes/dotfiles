@@ -34,9 +34,6 @@
 [submodule "nvim/pack/plugins/start/vim-solarized8"]
 	path = nvim/pack/plugins/start/vim-solarized8
 	url = https://github.com/lifepillar/vim-solarized8.git
-[submodule "nvim/pack/plugins/start/vim-airline"]
-	path = nvim/pack/plugins/start/vim-airline
-	url = https://github.com/vim-airline/vim-airline.git
 [submodule "nvim/pack/plugins/start/onedark.vim"]
 	path = nvim/pack/plugins/start/onedark.vim
 	url = https://github.com/joshdick/onedark.vim.git
