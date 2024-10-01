@@ -1,0 +1,6 @@
+*
+!.config/
+!.config/**
+!.gitignore
+!LICENSE
+!.tmux.conf
