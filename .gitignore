@@ -8,5 +8,4 @@
 !.config/omf/**
 !.gitignore
 !.tmux.conf
-!.zshrc
 !LICENSE
