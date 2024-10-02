@@ -1,4 +1,7 @@
+# Default ignore
 *
+
+# Common
 !.config/
 !.config/fish/
 !.config/fish/**
@@ -7,5 +10,11 @@
 !.config/omf/
 !.config/omf/**
 !.gitignore
+!.tmux/
+!.tmux/plugins/
+!.tmux/plugins/tpm/
+!.tmux/plugins/tpm/**
 !.tmux.conf
 !LICENSE
+
+# Use this area for machine-specific configuration (in branches)
