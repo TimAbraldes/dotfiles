@@ -8,8 +8,6 @@
 !.config/fish/functions/fish_prompt.fish
 !.config/nvim
 !.config/nvim/**
-!.config/omf/
-!.config/omf/**
 !.gitignore
 !.tmux.conf
 !LICENSE
