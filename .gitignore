@@ -8,7 +8,7 @@
 !.config/fish/fish_plugins
 !.config/fish/functions/fish_prompt.fish
 !.config/nvim
-!.config/nvim/**
+!.config/nvim/init.lua
 !.gitignore
 !.tmux.conf
 !LICENSE
