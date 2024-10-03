@@ -1,4 +1,8 @@
 function fish_prompt --description 'Informative prompt'
+    rainbow_line
+
+    echo -n (fish_default_mode_prompt)
+
     #Save the return status of the previous command
     set -l last_pipestatus $pipestatus
 
