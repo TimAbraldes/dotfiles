@@ -13,6 +13,7 @@
 !.config/nvim/init.lua
 !.gitignore
 !.tmux.conf
+!.wezterm.lua
 !LICENSE
 
 # Use this area for machine-specific configuration (in branches)
