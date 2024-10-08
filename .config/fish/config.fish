@@ -41,20 +41,14 @@ end
 
 # Install / update any fisher plugins, but not if we're starting up inside TMUX
 if not set --query TMUX
-	echo "START fisher update"
 	fisher update
-	echo "DONE fisher update"
 end
 
 # It's hard to believe, but Amazon Linux 2 has libraries that are so old that NodeJS > 16 won't run
 if cat /etc/os-release | grep --quiet "Amazon Linux 2"
-	echo "START nvm install v16"
 	nvm install v16
-	echo "DONE nvm install v16"
 else
-	echo "START nvm install latest"
 	nvm install latest
-	echo "DONE nvm install latest"
 end
 
 # Use this area for machine-agnostic configuration (checked in to main branch of dotfiles repo)
