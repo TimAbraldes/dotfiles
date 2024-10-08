@@ -1,3 +1,12 @@
+# Put any configuration that should happen even in non-interactive usage here
+
+
+# Most of this file shouldn't be run if we're just executing a fish script.
+# Go ahead and exit at this point if we're not running interactively
+if not status is-interactive
+	exit
+end
+
 # Some commands that we'll run (e.g. fisher) will invoke fish, causing this file to be processed recursively
 # Guard against that situation with an environment variable
 if set --query ALREADY_PROCESSING_FISH_CONFIG
@@ -7,7 +16,7 @@ end
 set --export ALREADY_PROCESSING_FISH_CONFIG 1
 
 # Install wezterm terminfo if not already installed
-if not toe -a | grep wezterm &> /dev/null
+if not toe -a | grep --quiet "wezterm"
 	echo "START Installing wezterm terminfo file"
 	set --local tempfile $(mktemp)
 	curl -o $tempfile https://raw.githubusercontent.com/wez/wezterm/main/termwiz/data/wezterm.terminfo
@@ -31,7 +40,7 @@ else
 end
 
 # Install / update any fisher plugins, but not if we're starting up inside TMUX
-if not set --query TMUX; and not set --query FISHER_UPDATE
+if not set --query TMUX
 	echo "START fisher update"
 	fisher update
 	echo "DONE fisher update"
@@ -43,4 +52,6 @@ set -g fish_key_bindings fish_vi_key_bindings
 # Use this area for machine-specific configuration (checked in to dotfiles repo in separate branches)
 nvm install latest
 
+
+# Clean up
 set --erase ALREADY_PROCESSING_FISH_CONFIG 1
