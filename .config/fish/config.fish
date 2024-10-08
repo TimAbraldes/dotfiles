@@ -79,5 +79,5 @@ if set --query SSH_TTY; and type --query tmux
 	if not tmux has-session -t default-session
 		exec tmux new-session -s default-session
 	end
-	exec tmux attach -s default-session
+	exec tmux attach -t default-session
 end
