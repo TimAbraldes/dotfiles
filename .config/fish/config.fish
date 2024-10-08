@@ -1,9 +1,18 @@
 # Put any configuration that should happen even in non-interactive usage here
 
 
-# Most of this file shouldn't be run if we're just executing a fish script.
-# Go ahead and exit at this point if we're not running interactively
+# The rest of this file shouldn't be run if we're just executing a fish script
 if not status is-interactive
+	exit
+end
+
+# I think most fish configuration will go here
+# We're in an interactive shell, possibly running in tmux
+set -g fish_key_bindings fish_vi_key_bindings
+set fish_term24bit 1
+
+# The rest of this file shouldn't be run if we're opening a new fish shell from within tmux
+if set --query TMUX
 	exit
 end
 
@@ -36,10 +45,8 @@ else
 	echo "SKIP Installing fisher"
 end
 
-# Install / update any fisher plugins, but not if we're starting up inside TMUX
-if not set --query TMUX
-	fisher update
-end
+# Install / update any fisher plugins
+fisher update
 
 # It's hard to believe, but Amazon Linux 2 has libraries that are so old that NodeJS > 16 won't run
 if cat /etc/os-release | grep --quiet "Amazon Linux 2"
@@ -48,17 +55,29 @@ else
 	nvm install latest
 end
 
-# Use this area for machine-agnostic configuration (checked in to main branch of dotfiles repo)
-set -g fish_key_bindings fish_vi_key_bindings
-set fish_term24bit 1
+# If tmux is installed, install tpm and plugins
+# This is sort of a port from the instructions here:
+# 	https://github.com/tmux-plugins/tpm/blob/master/docs/automatic_tpm_installation.md
+if type --query tmux
+	if not test -d ~/.tmux/plugins/tpm
+		echo START Installing tpm
+		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+		echo DONE Installing tpm
+	end
 
-# Use this area for machine-specific configuration (checked in to dotfiles repo in separate branches)
-
+	echo START Updating tpm plugins
+	~/.tmux/plugins/tpm/bin/install_plugins
+	echo DONE Updating tpm plugins
+end
 
 # Clean up
+# Note: We do this before the next block which potentially calls exec
 set --erase ALREADY_PROCESSING_FISH_CONFIG 1
 
 # If we're ssh'ed into a machine, and that machine has tmux, we almost definitely want to run it
-if set --query SSH_TTY; and type --query tmux; and not set --query TMUX
-	exec tmux new-session -A default-tmux-session
+if set --query SSH_TTY; and type --query tmux
+	if not tmux has-session -t default-session
+		exec tmux new-session -s default-session
+	end
+	exec tmux attach -s default-session
 end
