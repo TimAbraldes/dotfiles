@@ -59,6 +59,6 @@ set fish_term24bit 1
 set --erase ALREADY_PROCESSING_FISH_CONFIG 1
 
 # If we're ssh'ed into a machine, and that machine has tmux, we almost definitely want to run it
-if set --query SSH_TTY; and type --query tmux
+if set --query SSH_TTY; and type --query tmux; and not set --query $TMUX
 	exec tmux new-session -A default-tmux-session
 end
