@@ -36,6 +36,13 @@ else
 	echo "SKIP Installing wezterm terminfo file"
 end
 
+# If brew is installed on this system, go ahead and update/upgrade
+if type --quiet brew
+	echo "START brew update && brew upgrade"
+	brew update && brew upgrade
+	echo "DONE brew update && brew upgrade"
+end
+
 # Install fisher if not already installed
 if not type --quiet "fisher"
 	echo "START Installing fisher"
