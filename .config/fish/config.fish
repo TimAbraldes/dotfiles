@@ -36,6 +36,16 @@ else
 	echo "SKIP Installing wezterm terminfo file"
 end
 
+# Getting updated binaries onto Amazon Linux 2 is kind of a nightmare
+# so we'll use brew for this purpose
+if cat /etc/os-release | grep --quiet "Amazon Linux 2"
+	echo "START Installing brew"
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	echo "DONE Installing brew"
+else
+	echo "SKIP Installing brew"
+end
+
 # If brew is installed on this system:
 # 	- Update and upgrade
 # 	- Install the necessities
