@@ -36,10 +36,24 @@ else
 	echo "SKIP Installing wezterm terminfo file"
 end
 
-# If brew is installed on this system, go ahead and update/upgrade
+# If brew is installed on this system:
+# 	- Update and upgrade
+# 	- Install the necessities
 if type --quiet brew
 	echo "START brew update && brew upgrade"
+
 	brew update && brew upgrade
+
+	# Install neovim if not already installed
+	if not type --quiet nvim
+		brew install neovim
+	end
+
+	# Install git if not already installed
+	if not type --quiet git
+		brew install git
+	end
+
 	echo "DONE brew update && brew upgrade"
 end
 
