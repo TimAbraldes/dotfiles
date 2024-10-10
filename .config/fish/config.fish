@@ -36,14 +36,34 @@ else
     echo "SKIP Installing wezterm terminfo file"
 end
 
-# Getting updated binaries onto Amazon Linux 2 is kind of a nightmare
-# so we'll use brew for this purpose
-if cat /etc/os-release | grep --quiet "Amazon Linux 2"
+function _ensure_brew_pkgs
+    for PKG in $argv
+        if ! brew list $PKG >/dev/null
+            brew install $PKG
+        end
+    end
+end
+
+# I've come to realize that I actually want brew on all the systems I currently maintain
+if not test -e ~/.config/fish/machine-specific-brew-config.fish
     echo "START Installing brew"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     echo "DONE Installing brew"
+
+    echo "START brew postinstall"
+    if test -d /usr/local/Homebrew/
+        /usr/local/Homebrew/bin/brew shellenv >~/.config/fish/machine-specific-brew-config.fish
+    end
+    if test -d /home/linuxbrew/
+        /home/linuxbrew/.linuxbrew/bin/brew shellenv >~/.config/fish/machine-specific-brew-config.fish
+    end
+    echo "DONE brew postinstall"
 else
     echo "SKIP Installing brew"
+end
+
+if test -e ~/.config/fish/machine-specific-brew-config.fish
+    source ~/.config/fish/machine-specific-brew-config.fish
 end
 
 # If brew is installed on this system:
@@ -52,17 +72,16 @@ end
 if type --quiet brew
     echo "START brew update && brew upgrade"
 
-    brew update && brew upgrade
+    brew update
 
-    # Install neovim if not already installed
-    if not type --quiet nvim
-        brew install neovim
+    _ensure_brew_pkgs fish git neovim
+
+    # If we're in an ssh session, we want tmux
+    if set --query SSH_TTY
+        _ensure_brew_pkgs tmux
     end
 
-    # Install git if not already installed
-    if not type --quiet git
-        brew install git
-    end
+    brew upgrade
 
     echo "DONE brew update && brew upgrade"
 end
