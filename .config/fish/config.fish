@@ -36,34 +36,37 @@ else
     echo "SKIP Installing wezterm terminfo file"
 end
 
+# I've come to realize that I actually want brew on all the systems I currently maintain
+# Maybe someday that won't be true but, at least on Amazon Linux 2, WSL2, and MacOS it's
+# a reliable and frictionless way to get updated binaries
+set --local BREW_BIN_MAC /usr/local/Homebrew/bin/brew
+set --local BREW_BIN_LINUX /home/linuxbrew/.linuxbrew/bin/brew
+
+if not test -e $BREW_BIN_MAC; and not test -e $BREW_BIN_LINUX
+    echo "START Installing brew"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo "DONE Installing brew"
+else
+    echo "SKIP Installing brew"
+end
+
+echo "START brew postinstall"
+if test -e $BREW_BIN_MAC
+    $BREW_BIN_MAC shellenv | source
+    echo "DONE brew postinstall"
+else if test -e $BREW_BIN_LINUX
+    $BREW_BIN_LINUX shellenv | source
+    echo "DONE brew postinstall"
+else
+    echo "WARN not able to perform brew postinstall"
+end
+
 function _ensure_brew_pkgs
     for PKG in $argv
         if ! brew list $PKG >/dev/null
             brew install $PKG
         end
     end
-end
-
-# I've come to realize that I actually want brew on all the systems I currently maintain
-if not test -e ~/.config/fish/machine-specific-brew-config.fish
-    echo "START Installing brew"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    echo "DONE Installing brew"
-
-    echo "START brew postinstall"
-    if test -d /usr/local/Homebrew/
-        /usr/local/Homebrew/bin/brew shellenv >~/.config/fish/machine-specific-brew-config.fish
-    end
-    if test -d /home/linuxbrew/
-        /home/linuxbrew/.linuxbrew/bin/brew shellenv >~/.config/fish/machine-specific-brew-config.fish
-    end
-    echo "DONE brew postinstall"
-else
-    echo "SKIP Installing brew"
-end
-
-if test -e ~/.config/fish/machine-specific-brew-config.fish
-    source ~/.config/fish/machine-specific-brew-config.fish
 end
 
 # If brew is installed on this system:
