@@ -8,7 +8,7 @@ local config = wezterm.config_builder()
 config.term = 'wezterm'
 config.adjust_window_size_when_changing_font_size = false
 config.window_background_gradient = {
-  colors = { '#300000', '#303000', '#003000', '#003030', '#000030', '#300030' },
+  colors = { '#000000', '#300000', '#303000', '#003000', '#003030', '#000030', '#300030', '#000000' },
   orientation = { Linear = { angle = -20.0 } },
 }
 
