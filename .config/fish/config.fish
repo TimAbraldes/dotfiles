@@ -102,7 +102,7 @@ end
 fisher update
 
 # It's hard to believe, but Amazon Linux 2 has libraries that are so old that NodeJS > 16 won't run
-if cat /etc/os-release | grep --quiet "Amazon Linux 2"
+if test -e /etc/os-release && cat /etc/os-release | grep --quiet "Amazon Linux 2"
     nvm install v16
 else
     nvm install latest
