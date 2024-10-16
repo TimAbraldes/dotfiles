@@ -39,26 +39,19 @@ end
 # I've come to realize that I actually want brew on all the systems I currently maintain
 # Maybe someday that won't be true but, at least on Amazon Linux 2, WSL2, and MacOS it's
 # a reliable and frictionless way to get updated binaries
-set --local BREW_BIN_MAC /usr/local/Homebrew/bin/brew
-set --local BREW_BIN_LINUX /home/linuxbrew/.linuxbrew/bin/brew
+function _initialize_brew
+    set --function POSSIBLE_BREW_PREFIXES /usr/local/Homebrew/ /home/linuxbrew/.linuxbrew/
+    for prefix in $POSSIBLE_BREW_PREFIXES
+        set --local brew_bin_path $prefix/bin/brew
+        if test -e $brew_bin_path
+            $brew_bin_path shellenv | source
+            # The above command should have put brew into our PATH
+            return type --quiet brew
+        end
+    end
 
-if not test -e $BREW_BIN_MAC; and not test -e $BREW_BIN_LINUX
-    echo "START Installing brew"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    echo "DONE Installing brew"
-else
-    echo "SKIP Installing brew"
-end
-
-echo "START brew postinstall"
-if test -e $BREW_BIN_MAC
-    $BREW_BIN_MAC shellenv | source
-    echo "DONE brew postinstall"
-else if test -e $BREW_BIN_LINUX
-    $BREW_BIN_LINUX shellenv | source
-    echo "DONE brew postinstall"
-else
-    echo "WARN not able to perform brew postinstall"
+    # brew wasn't found
+    return 1
 end
 
 function _ensure_brew_pkgs
@@ -69,24 +62,30 @@ function _ensure_brew_pkgs
     end
 end
 
-# If brew is installed on this system:
-# 	- Update and upgrade
-# 	- Install the necessities
-if type --quiet brew
-    echo "START brew update && brew upgrade"
+function _ensure_brew
+    if _initialize_brew
+        echo SKIP Installing brew
+        return
+    end
+
+    echo START Installing brew
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    if not _initialize_brew
+        echo FAIL Installing brew
+        return 1
+    end
 
     brew update
 
-    _ensure_brew_pkgs fish git neovim
-
-    # If we're in an ssh session, we want tmux
+    set --function brew_packages fish git neovim
     if set --query SSH_TTY
-        _ensure_brew_pkgs tmux
+        set --append brew_packages tmux
     end
 
-    brew upgrade
+    _ensure_brew_pkgs $brew_packages
 
-    echo "DONE brew update && brew upgrade"
+    brew upgrade
 end
 
 # Install fisher if not already installed
