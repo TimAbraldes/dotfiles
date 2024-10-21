@@ -1,0 +1,10 @@
+[init]
+  defaultBranch = main
+[user]
+  name = Tim Falletta Abraldes
+  email = github.rjww2@slmail.me
+[core]
+  editor = nvim
+  excludesFile = ~/.gitignore_global
+[push]
+  default = nothing

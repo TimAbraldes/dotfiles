@@ -13,7 +13,9 @@
 !.config/nvim/lua/
 !.config/nvim/lua/config/
 !.config/nvim/lua/config/*.lua
+!.gitconfig
 !.gitignore
+!.gitignore_global
 !.tmux.conf
 !.wezterm.lua
 !.zshrc
