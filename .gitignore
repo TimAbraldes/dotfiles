@@ -10,6 +10,7 @@
 !.config/fish/functions/fish_mode_prompt.fish
 !.config/fish/functions/fish_prompt.fish
 !.config/nvim
+!.config/nvim/lazyvim.json
 !.config/nvim/lua/
 !.config/nvim/lua/config/
 !.config/nvim/lua/config/*.lua
