@@ -41,7 +41,7 @@ function() {
     export SHELL=$(command -v fish)
 
     # Give myself a chance to read any interesting text from above
-    read -s -k $'?[zshrc] About to exec fish. Press any key to continue.\n'
+    read -s -k $'?\n[zshrc] About to exec fish. Press any key to continue.\n'
     exec fish
   else
     echo '[zshrc] FAIL fish not found'
