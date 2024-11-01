@@ -1,50 +1,49 @@
 function() {
+  echo '[zshrc] START'
+
   local BREW_BIN_MAC=/usr/local/Homebrew/bin/brew
   local BREW_BIN_LINUX=/home/linuxbrew/.linuxbrew/bin/brew 
 
   # Install brew if not already installed
   if ! test -e $BREW_BIN_LINUX && ! test -e $BREW_BIN_MAC
   then
-    echo START Installing brew
+    echo '[zshrc] START Installing brew'
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    echo DONE Installing brew
+    echo '[zshrc] DONE Installing brew'
   else
-    echo SKIP Installing brew
+    echo '[zshrc] SKIP Installing brew'
   fi
 
-  # Put brew in PATH (linux version)
+  echo '[zshrc] START brew shellenv'
   if test -e $BREW_BIN_LINUX
   then
-    echo START brew postinstall
     eval $($BREW_BIN_LINUX shellenv)
-    echo DONE brew postinstall
-  # Put brew in PATH (MacOS version)
   elif test -e $BREW_BIN_MAC
   then
-    echo START brew postinstall
     eval $($BREW_BIN_MAC shellenv)
-    echo DONE brew postinstall
   fi
+  echo '[zshrc] DONE brew shellenv'
+
 
   if ! command -v brew > /dev/null 2>&1
   then
-    echo WARN brew not found, will not try to install fish
+    echo '[zshrc] WARN brew not found, will not try to install fish'
   else
-    if ! brew list fish > /dev/null 2>&1
-    then
-      echo START Installing fish
-      brew install fish
-      echo DONE Installing fish
-    else
-      echo SKIP Installing fish
-    fi
+    echo '[zshrc] START Installing/upgrading brew packages'
+    brew install fish git neovim tmux
+    echo '[zshrc] DONE Installing/upgrading brew packages'
   fi
 
   if command -v fish > /dev/null 2>&1
   then
+    # This line is important because otherwise commands like `brew shellenv` will
+    # spit out zsh-flavored script instead of fish-flavored script
     export SHELL=$(command -v fish)
+
+    # Give myself a chance to read any interesting text from above
+    read -s -k $'?[zshrc] About to exec fish. Press any key to continue.\n'
     exec fish
   else
-    echo FAIL fish not found
+    echo '[zshrc] FAIL fish not found'
   fi
 }
