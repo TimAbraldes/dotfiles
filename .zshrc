@@ -27,7 +27,7 @@ function() {
 
   if ! command -v brew > /dev/null 2>&1
   then
-    echo '[zshrc] WARN brew not found, will not try to install fish'
+    echo '[zshrc] WARN brew not found'
   else
     echo '[zshrc] START Installing/upgrading brew packages'
     brew install fish git neovim tmux
@@ -51,6 +51,14 @@ function() {
     echo "[zshrc] DONE Updating tpm plugins"
   fi
 
+  if command -v fish > /dev/null 2>&1
+  then
+    # Examples of why we need this:
+    #   - `brew shellenv` needs to output fish-flavored shell script instead of zsh-flavored
+    #   - tmux needs to start fish instead of zsh
+    export SHELL=$(command -v fish)
+  fi
+
   # If we're ssh'ed into a machine, and that machine has tmux, and we're not already running TMUX,
   # then we almost definitely want to run it
   if [[ -v SSH_TTY ]] && command -v tmux > /dev/null 2>&1 && [[ ! -v TMUX ]]
@@ -69,10 +77,6 @@ function() {
   # Run fish
   if command -v fish > /dev/null 2>&1
   then
-    # This line is important because otherwise commands like `brew shellenv` will
-    # spit out zsh-flavored script instead of fish-flavored script
-    export SHELL=$(command -v fish)
-
     # Give myself a chance to read any interesting text from above
     read -s -k $'?\n[zshrc] About to exec fish. Press any key to continue.\n'
     exec fish
