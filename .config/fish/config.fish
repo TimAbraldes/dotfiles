@@ -79,11 +79,3 @@ end
 # Clean up
 # Note: We do this before the next block which I sometimes update to run exec
 set --erase ALREADY_PROCESSING_FISH_CONFIG 1
-
-# If we're ssh'ed into a machine, and that machine has tmux, we almost definitely want to run it
-if set --query SSH_TTY; and type --query tmux
-    if not tmux has-session
-        tmux new-session
-    end
-    tmux attach
-end

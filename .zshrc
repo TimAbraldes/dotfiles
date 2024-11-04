@@ -34,6 +34,21 @@ function() {
     echo '[zshrc] DONE Installing/upgrading brew packages'
   fi
 
+  # If we're ssh'ed into a machine, and that machine has tmux, we almost definitely want to run it
+  if [[ -v SSH_TTY ]] && command -v tmux > /dev/null 2>&1
+  then
+    # Give myself a chance to read any interesting text from above
+    read -s -k $'?\n[zshrc] About to exec tmux. Press any key to continue.\n'
+
+    if ! tmux has-session
+    then
+      exec tmux new-session
+    fi
+
+    exec tmux attach
+  fi
+
+  # Run fish
   if command -v fish > /dev/null 2>&1
   then
     # This line is important because otherwise commands like `brew shellenv` will
