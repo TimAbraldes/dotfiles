@@ -34,51 +34,17 @@ function() {
     echo '[zshrc] DONE Installing/upgrading brew packages'
   fi
 
-  # If tmux is installed, install tpm and plugins
-  # This is sort of a port from the instructions here:
-  # 	https://github.com/tmux-plugins/tpm/blob/master/docs/automatic_tpm_installation.md
-  if command -v tmux > /dev/null 2>&1
-  then
-    if [[ ! -d ~/.tmux/plugins/tpm ]]
-    then
-      echo "[zshrc] START Installing tpm"
-      git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-      echo "[zshrc] DONE Installing tpm"
-    fi
-
-    echo "[zshrc] START Updating tpm plugins"
-    ~/.tmux/plugins/tpm/bin/install_plugins
-    echo "[zshrc] DONE Updating tpm plugins"
-  fi
-
-  if command -v fish > /dev/null 2>&1
-  then
-    # Examples of why we need this:
-    #   - `brew shellenv` needs to output fish-flavored shell script instead of zsh-flavored
-    #   - tmux needs to start fish instead of zsh
-    export SHELL=$(command -v fish)
-  fi
-
-  # If we're ssh'ed into a machine, and that machine has tmux, and we're not already running TMUX,
-  # then we almost definitely want to run it
-  if [[ -v SSH_TTY ]] && command -v tmux > /dev/null 2>&1 && [[ ! -v TMUX ]]
-  then
-    # Give myself a chance to read any interesting text from above
-    read -s -k $'?\n[zshrc] About to exec tmux. Press any key to continue.\n'
-
-    if ! tmux has-session
-    then
-      exec tmux new-session
-    fi
-
-    exec tmux attach
-  fi
-
   # Run fish
   if command -v fish > /dev/null 2>&1
   then
     # Give myself a chance to read any interesting text from above
     read -s -k $'?\n[zshrc] About to exec fish. Press any key to continue.\n'
+
+    # Examples of why we need this:
+    #   - `brew shellenv` needs to output fish-flavored shell script instead of zsh-flavored
+    #   - tmux needs to start fish instead of zsh
+    export SHELL=$(command -v fish)
+
     exec fish
   else
     echo '[zshrc] FAIL fish not found'

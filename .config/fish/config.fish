@@ -61,6 +61,36 @@ else
 end
 echo "[config.fish] DONE nvm install"
 
+# If tmux is installed, install tpm and plugins
+# This is sort of a port from the instructions here:
+# 	https://github.com/tmux-plugins/tpm/blob/master/docs/automatic_tpm_installation.md
+if type --quiet tmux
+    if not test -d ~/.tmux/plugins/tpm
+        echo "[config.fish] START Installing tpm"
+        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+        echo "[config.fish] DONE Installing tpm"
+    end
+
+    echo "[config.fish] START Updating tpm plugins"
+    ~/.tmux/plugins/tpm/bin/install_plugins
+    echo "[config.fish] DONE Updating tpm plugins"
+end
+
 # Clean up
 # Note: We do this before the next block which I sometimes update to run exec
 set --erase ALREADY_PROCESSING_FISH_CONFIG 1
+
+# If we're ssh'ed into a machine, and that machine has tmux, and we're not already running TMUX,
+# then we almost definitely want to run it
+if set --query SSH_TTY; and type --quiet tmux; and not set --query TMUX
+    # Give myself a chance to read any interesting text from above
+    if not read --nchars 1 --prompt-str \n"[config.fish] About to exec tmux. Press any key to continue"
+        return
+    end
+
+    if not tmux has-session
+        exec tmux new-session
+    end
+
+    exec tmux attach
+end
