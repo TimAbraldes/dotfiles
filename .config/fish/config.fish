@@ -61,21 +61,6 @@ else
 end
 echo "[config.fish] DONE nvm install"
 
-# If tmux is installed, install tpm and plugins
-# This is sort of a port from the instructions here:
-# 	https://github.com/tmux-plugins/tpm/blob/master/docs/automatic_tpm_installation.md
-if type --query tmux
-    if not test -d ~/.tmux/plugins/tpm
-        echo "[config.fish] START Installing tpm"
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-        echo "[config.fish] DONE Installing tpm"
-    end
-
-    echo "[config.fish] START Updating tpm plugins"
-    ~/.tmux/plugins/tpm/bin/install_plugins
-    echo "[config.fish] DONE Updating tpm plugins"
-end
-
 # Clean up
 # Note: We do this before the next block which I sometimes update to run exec
 set --erase ALREADY_PROCESSING_FISH_CONFIG 1
