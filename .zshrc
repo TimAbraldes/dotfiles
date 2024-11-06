@@ -31,6 +31,7 @@ function() {
   else
     echo '[zshrc] START Installing/upgrading brew packages'
     brew install fish git neovim tmux
+    brew upgrade
     echo '[zshrc] DONE Installing/upgrading brew packages'
   fi
 
