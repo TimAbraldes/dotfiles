@@ -30,6 +30,7 @@ function() {
     echo '[zshrc] WARN brew not found'
   else
     echo '[zshrc] START Installing/upgrading brew packages'
+    brew update
     brew install fish git neovim tmux
     brew upgrade
     echo '[zshrc] DONE Installing/upgrading brew packages'
