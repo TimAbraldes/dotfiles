@@ -49,7 +49,15 @@ function() {
   else
     echo '[zshrc] START Installing/upgrading brew packages'
     brew update
-    brew install fish git neovim tmux
+
+    local BREW_INSTALL_PKGS=(fish git neovim tmux)
+    if [[ $(uname) = 'Darwin' ]]
+    then
+      BREW_INSTALL_PKGS+=(wezterm rectangle)
+    fi
+    brew install ${BREW_INSTALL_PKGS}
+
+
     brew upgrade
     echo '[zshrc] DONE Installing/upgrading brew packages'
   fi
