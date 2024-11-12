@@ -1,26 +1,44 @@
 function() {
   echo '[zshrc] START'
 
-  local BREW_BIN_MAC=/usr/local/Homebrew/bin/brew
-  local BREW_BIN_LINUX=/home/linuxbrew/.linuxbrew/bin/brew 
+  local BREW_BIN_PATHS=('/home/linuxbrew/.linuxbrew/bin/brew' '/opt/Homebrew/bin/brew' '/usr/local/Homebrew/bin/brew')
+  local BREW_BIN=''
 
-  # Install brew if not already installed
-  if ! test -e $BREW_BIN_LINUX && ! test -e $BREW_BIN_MAC
+  # Find brew
+  for bin_path in $BREW_BIN_PATHS
+  do
+    if test -e $bin_path
+    then
+      BREW_BIN=$bin_path
+      break
+    fi
+  done
+
+  # Install brew if not found
+  if [[ -z $BREW_BIN ]]
   then
     echo '[zshrc] START Installing brew'
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    # Set BREW_BIN
+    for bin_path in $BREW_BIN_PATHS
+    do
+	    if test -e $bin_path
+	    then
+		    BREW_BIN=$bin_path
+		    break
+	    fi
+    done
+
     echo '[zshrc] DONE Installing brew'
   else
     echo '[zshrc] SKIP Installing brew'
   fi
 
   echo '[zshrc] START brew shellenv'
-  if test -e $BREW_BIN_LINUX
+  if test -e $BREW_BIN
   then
-    eval $($BREW_BIN_LINUX shellenv)
-  elif test -e $BREW_BIN_MAC
-  then
-    eval $($BREW_BIN_MAC shellenv)
+    eval $($BREW_BIN shellenv)
   fi
   echo '[zshrc] DONE brew shellenv'
 
