@@ -49,7 +49,7 @@ else
 end
 
 echo "[config.fish] START fisher update"
-fisher update | tail --lines 1
+fisher update
 echo "[config.fish] DONE fisher update"
 
 echo "[config.fish] START nvm install"
