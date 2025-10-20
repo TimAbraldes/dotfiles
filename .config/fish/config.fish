@@ -13,6 +13,7 @@ end
 # We're in an interactive shell, possibly running in tmux
 set -g fish_key_bindings fish_vi_key_bindings
 set fish_term24bit 1
+abbr --add --position command gb git branch -vv
 
 # The rest of this file shouldn't be run if we're opening a new fish shell from within tmux
 if set --query TMUX
