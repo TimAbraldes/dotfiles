@@ -14,6 +14,8 @@ end
 set -g fish_key_bindings fish_vi_key_bindings
 set fish_term24bit 1
 abbr --add --position command gb git branch -vv
+abbr --add --position command gbd git branch -d
+abbr --add --position command gbD git branch -D
 
 # The rest of this file shouldn't be run if we're opening a new fish shell from within tmux
 if set --query TMUX
