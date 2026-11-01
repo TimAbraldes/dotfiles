@@ -1,18 +1,20 @@
 ;; ---------------------------------------------------------------------------
-;; This block was copied verbatim from the emacs-evil installation instructions:
+;; This block was adapted from the emacs-evil installation instructions:
 ;; https://github.com/emacs-evil/evil
+;;
 ;; Set up evil
 ;; ==================================
 ;; Set up package.el to work with MELPA
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
-(package-initialize)
-(package-refresh-contents)
 
 ;; Download Evil
 (unless (package-installed-p 'evil)
-  (package-install 'evil))
+  (package-initialize)
+  (package-refresh-contents)
+  (package-install 'evil)
+)
 
 ;; Enable Evil
 (require 'evil)
