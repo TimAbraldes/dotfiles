@@ -30,18 +30,6 @@ end
 
 set --export ALREADY_PROCESSING_FISH_CONFIG 1
 
-# Install wezterm terminfo if not already installed
-if not toe -a | grep --quiet wezterm
-    echo "[config.fish] START Installing wezterm terminfo file"
-    set --local tempfile $(mktemp)
-    curl -o $tempfile https://raw.githubusercontent.com/wez/wezterm/main/termwiz/data/wezterm.terminfo
-    tic -x -o ~/.terminfo $tempfile
-    rm $tempfile
-    echo "[config.fish] DONE Installing wezterm terminfo file"
-else
-    echo "[config.fish] SKIP Installing wezterm terminfo file"
-end
-
 # Install fisher if not already installed
 if not type --quiet fisher
     echo "[config.fish] START Installing fisher"
