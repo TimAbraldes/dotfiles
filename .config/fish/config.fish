@@ -46,8 +46,7 @@ else
     end
 end
 
-# Clean up
-# Note: This needs to come before the next block which can perform an exec
+# Clean up guard environment variable
 set --erase ALREADY_PROCESSING_FISH_CONFIG 1
 
 echo ""
