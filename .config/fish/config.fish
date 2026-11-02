@@ -1,6 +1,3 @@
-# Note: This file assumes that the .zshrc from this same dotfiles repo has already run.
-# Specifically, that means that brew is installed and up-to-date
-
 # Put any configuration that should happen even in non-interactive usage here
 
 
