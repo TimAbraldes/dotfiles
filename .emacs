@@ -1,3 +1,8 @@
+;; -*- lexical-binding: t; -*-
+;; The above is necessary to avoid warnings on every launch.
+;; It is the "lexical-binding cookie" and signifies maybe that lexical binding should be used instead of dynamic binding?
+;; It also needs to be the first thing in this file so don't place anything above it (including these comments)
+
 ;; ---------------------------------------------------------------------------
 ;; This block was adapted from the emacs-evil installation instructions:
 ;; https://github.com/emacs-evil/evil
