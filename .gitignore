@@ -15,7 +15,6 @@
 !.gitignore_global
 !.tmux.conf
 !.wezterm.lua
-!.zshrc
 !LICENSE
 
 # Use this area for machine-specific configuration (in branches)
