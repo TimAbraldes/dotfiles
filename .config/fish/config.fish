@@ -32,34 +32,38 @@ set --export ALREADY_PROCESSING_FISH_CONFIG 1
 # Install fisher if not already installed
 if not type --quiet fisher
     echo "[config.fish] START Installing fisher"
+    # TODO: This seems sketchy. Is there a different way to install?
     curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
     echo "[config.fish] DONE Installing fisher"
-else
-    echo "[config.fish] SKIP Installing fisher"
+
+    echo ""
+
+    echo "[config.fish] START fisher update"
+    fisher update
+    echo "[config.fish] DONE fisher update"
 end
 
-echo "[config.fish] START fisher update"
-fisher update
-echo "[config.fish] DONE fisher update"
+# TODO: Probably only want to update NodeJS conditionally. Figure out the condition
 
-echo "[config.fish] START nvm install"
 # It's hard to believe, but Amazon Linux 2 has libraries that are so old that NodeJS > 16 won't run
 if test -e /etc/os-release && cat /etc/os-release | grep --quiet "Amazon Linux 2"
     nvm install v16
 else
     nvm install latest
 end
-echo "[config.fish] DONE nvm install"
 
 # If tmux is installed, install tpm and plugins
 # This is sort of a port from the instructions here:
 # 	https://github.com/tmux-plugins/tpm/blob/master/docs/automatic_tpm_installation.md
 if type --quiet tmux
     if not test -d ~/.tmux/plugins/tpm
+        echo ""
         echo "[config.fish] START Installing tpm"
         git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
         echo "[config.fish] DONE Installing tpm"
     end
+
+    echo ""
 
     echo "[config.fish] START Updating tpm plugins"
     ~/.tmux/plugins/tpm/bin/install_plugins
@@ -67,7 +71,7 @@ if type --quiet tmux
 end
 
 # Clean up
-# Note: We do this before the next block which I sometimes update to run exec
+# Note: This needs to come before the next block which can perform an exec
 set --erase ALREADY_PROCESSING_FISH_CONFIG 1
 
 # If we're ssh'ed into a machine, and that machine has tmux, and we're not already running TMUX,
@@ -84,3 +88,9 @@ if set --query SSH_TTY; and type --quiet tmux; and not set --query TMUX
 
     exec tmux attach
 end
+
+echo ""
+echo "Available abbreviations:"
+abbr --show
+
+echo ""
