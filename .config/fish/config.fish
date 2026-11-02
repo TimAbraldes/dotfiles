@@ -5,8 +5,24 @@ if not status is-interactive
     exit
 end
 
-# I think most fish configuration will go here
-# We're in an interactive shell, possibly running in tmux
+# If we're ssh'ed into a machine, and that machine has tmux, and we're not already running TMUX,
+# then we almost definitely want to run it
+if set --query SSH_TTY; and type --quiet tmux; and not set --query TMUX
+    if not tmux has-session
+        exec tmux new-session
+    end
+
+    exec tmux attach
+end
+
+# Some commands that we'll run (e.g. fisher) will invoke fish, causing this file to be processed recursively
+# Guard against that situation with an environment variable
+if set --query ALREADY_PROCESSING_FISH_CONFIG
+    exit
+else
+    set --export ALREADY_PROCESSING_FISH_CONFIG 1
+end
+
 set -g fish_key_bindings fish_vi_key_bindings
 set fish_term24bit 1
 abbr --add --position command gb git branch -vv
@@ -15,80 +31,24 @@ abbr --add --position command gbD git branch -D
 abbr --add --position command vi emacs --no-window-system
 abbr --add --position command vim emacs --no-window-system
 
-# The rest of this file shouldn't be run if we're opening a new fish shell from within tmux
-if set --query TMUX
-    exit
-end
-
-# Some commands that we'll run (e.g. fisher) will invoke fish, causing this file to be processed recursively
-# Guard against that situation with an environment variable
-if set --query ALREADY_PROCESSING_FISH_CONFIG
-    exit
-end
-
-set --export ALREADY_PROCESSING_FISH_CONFIG 1
-
-# Install fisher if not already installed
 if not type --quiet fisher
-    echo "[config.fish] START Installing fisher"
-
-    # NOTE: Piping the output of a `curl` call to `source` seems sketchy. However, it's not all that different from what fisher does on every update
-    curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
-
-    echo "[config.fish] DONE Installing fisher"
-
-    echo ""
-
-    echo "[config.fish] START fisher update"
-    fisher update
-    echo "[config.fish] DONE fisher update"
-end
-
-# TODO: Probably only want to update NodeJS conditionally. Figure out the condition
-
-# It's hard to believe, but Amazon Linux 2 has libraries that are so old that NodeJS > 16 won't run
-if test -e /etc/os-release && cat /etc/os-release | grep --quiet "Amazon Linux 2"
-    nvm install v16
+    echo "[config.fish] fisher is not installed. Plugins will not be available for fish until fisher is installed"
 else
-    nvm install latest
-end
+    fisher --version
+    fisher list
 
-# If tmux is installed, install tpm and plugins
-# This is sort of a port from the instructions here:
-# 	https://github.com/tmux-plugins/tpm/blob/master/docs/automatic_tpm_installation.md
-if type --quiet tmux
-    if not test -d ~/.tmux/plugins/tpm
+    if not type --quiet nvm
+        echo "[config.fish] nvm is not installed. Please run fisher update"
+    else
         echo ""
-        echo "[config.fish] START Installing tpm"
-        git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-        echo "[config.fish] DONE Installing tpm"
+        echo "NodeJS versions:"
+        nvm ls
     end
-
-    echo ""
-
-    echo "[config.fish] START Updating tpm plugins"
-    ~/.tmux/plugins/tpm/bin/install_plugins
-    echo "[config.fish] DONE Updating tpm plugins"
 end
 
 # Clean up
 # Note: This needs to come before the next block which can perform an exec
 set --erase ALREADY_PROCESSING_FISH_CONFIG 1
-
-# If we're ssh'ed into a machine, and that machine has tmux, and we're not already running TMUX,
-# then we almost definitely want to run it
-if set --query SSH_TTY; and type --quiet tmux; and not set --query TMUX
-    # Give myself a chance to read any interesting text from above
-    if not read --nchars 1 --prompt-str \n"[config.fish] About to exec tmux. Press any key to continue"
-        return
-    end
-
-    if not tmux has-session
-        exec tmux new-session
-    end
-
-    exec tmux attach
-end
 
 echo ""
 echo "Available abbreviations:"
