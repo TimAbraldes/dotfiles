@@ -13,6 +13,8 @@ set fish_term24bit 1
 abbr --add --position command gb git branch -vv
 abbr --add --position command gbd git branch -d
 abbr --add --position command gbD git branch -D
+abbr --add --position command vi emacs --no-window-system
+abbr --add --position command vim emacs --no-window-system
 
 # The rest of this file shouldn't be run if we're opening a new fish shell from within tmux
 if set --query TMUX
