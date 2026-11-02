@@ -1,6 +1,5 @@
 # Put any configuration that should happen even in non-interactive usage here
 
-
 # The rest of this file shouldn't be run if we're just executing a fish script
 if not status is-interactive
     exit
@@ -32,8 +31,10 @@ set --export ALREADY_PROCESSING_FISH_CONFIG 1
 # Install fisher if not already installed
 if not type --quiet fisher
     echo "[config.fish] START Installing fisher"
-    # TODO: This seems sketchy. Is there a different way to install?
+
+    # NOTE: Piping the output of a `curl` call to `source` seems sketchy. However, it's not all that different from what fisher does on every update
     curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
+
     echo "[config.fish] DONE Installing fisher"
 
     echo ""
