@@ -32,18 +32,25 @@ abbr --add --position command vi emacs --no-window-system
 abbr --add --position command vim emacs --no-window-system
 
 if not type --quiet fisher
-    echo "[config.fish] fisher is not installed. Plugins will not be available for fish until fisher is installed"
+    echo "Plugins will not be available for fish until fisher is installed"
 else
-    fisher --version
+    echo "$(fisher --version), installed plugins:"
     fisher list
 
+    echo ""
     if not type --quiet nvm
-        echo "[config.fish] nvm is not installed. Please run fisher update"
+        echo "nvm is not installed. Please run fisher update"
     else
-        echo ""
         echo "NodeJS versions:"
         nvm ls
     end
+end
+
+echo ""
+if not type --quiet emacs
+    echo "Emacs not installed!"
+else
+    echo "Emacs: $(emacs --version | head -n 1)"
 end
 
 # Clean up guard environment variable
