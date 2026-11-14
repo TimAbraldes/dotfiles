@@ -4,7 +4,7 @@
   name = Tim Falletta Abraldes
   email = github.rjww2@slmail.me
 [core]
-  editor = nvim
+  editor = emacs --no-window
   excludesFile = ~/.gitignore_global
 [push]
   default = nothing
