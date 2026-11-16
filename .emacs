@@ -4,22 +4,20 @@
 ;; It also needs to be the first thing in this file so don't place anything above it (including these comments)
 
 ;; ---------------------------------------------------------------------------
-;; This block was adapted from the emacs-evil installation instructions:
+;; This block was synthesized from the following sets of instructions:
 ;; https://github.com/emacs-evil/evil
+;; https://elpa.gnu.org/packages/doc/auctex.html#Installation
 ;;
-;; Set up evil
-;; ==================================
 ;; Set up package.el to work with MELPA
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
 
-;; Download Evil
-(unless (package-installed-p 'evil)
-  (package-initialize)
-  (package-refresh-contents)
-  (package-install 'evil)
-)
+;; use-package will load the package if it is not already loaded, and :ensure means that it will download if not already present
+(use-package evil
+  :ensure t)
+(use-package auctex
+  :ensure t)
 
 ;; Enable Evil
 (require 'evil)
@@ -37,6 +35,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes '(modus-vivendi))
+ '(display-line-numbers t)
  '(inhibit-startup-screen t)
  '(package-selected-packages nil))
 (custom-set-faces
