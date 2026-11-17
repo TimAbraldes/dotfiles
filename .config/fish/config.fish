@@ -12,8 +12,7 @@ if not status is-interactive
     exit
 end
 
-# If we're ssh'ed into a machine, and that machine has tmux, and we're not already running TMUX,
-# then we almost definitely want to run it
+# If we're ssh'ed into a machine, and that machine has tmux, and we're not already running TMUX, then we almost definitely want to run it
 if set --query SSH_TTY; and type --quiet tmux; and not set --query TMUX
     if not tmux has-session
         exec tmux new-session
