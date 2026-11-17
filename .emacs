@@ -69,8 +69,16 @@
  '(display-line-numbers t)
  '(global-whitespace-mode t)
  '(inhibit-startup-screen t)
+ '(js-chain-indent t)
  '(package-selected-packages nil)
- '(tab-width 4))
+ '(tab-width 4)
+ '(typescript-ts-indent-offset 4)
+ '(typescript-ts-mode-multivar-indent-style 'align)
+ '(whitespace-style
+   '(face trailing tabs spaces newline missing-newline-at-eof empty
+		  indentation space-after-tab space-before-tab space-mark
+		  tab-mark newline-mark))
+ '(x-stretch-cursor t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
