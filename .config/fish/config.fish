@@ -1,4 +1,11 @@
 # Put any configuration that should happen even in non-interactive usage here
+if type --quiet nvm
+   set nvm_default_version latest
+   set nvm_default_packages typescript@6 typescript-language-server@6
+   if not nvm --silent use &> /dev/null
+      nvm --silent use $nvm_default_version
+   end
+end
 
 # The rest of this file shouldn't be run if we're just executing a fish script
 if not status is-interactive
