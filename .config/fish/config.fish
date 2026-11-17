@@ -3,7 +3,7 @@ if type --quiet nvm
    set nvm_default_version latest
    set nvm_default_packages typescript@6 typescript-language-server@6
    if not nvm --silent use &> /dev/null
-      nvm --silent use $nvm_default_version
+      nvm --silent use $nvm_default_version &> /dev/null
    end
 end
 
@@ -49,6 +49,9 @@ else
     else
         echo "NodeJS versions:"
         nvm ls
+		echo ""
+		echo "Installed npm packages for current version:"
+		npm ls -g
     end
 end
 
