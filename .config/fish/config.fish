@@ -1,9 +1,21 @@
+################################################
+# Section: Configure all (interactive and non-interactive) sessions
+#
 # Put any configuration that should happen even in non-interactive usage here
+################################################
 if type --quiet nvm
-	set nvm_default_version latest
+	# Install dependencies for TS autocompletion whenever installing a new Node version
 	set nvm_default_packages typescript@6 typescript-language-server@6
-	if not nvm --silent use &> /dev/null
-		nvm --silent use $nvm_default_version &> /dev/null
+
+	# Default to latest NodeJS version on most systems
+	set nvm_default_version latest
+
+	# If a Node version is already active, use that. Otherwise, activate a Node version
+	if not nvm --silent current &> /dev/null
+		# Try to activate using `nvm use` with no arguments first, so that any .nvmrc files are respected
+		if not nvm --silent use &> /dev/null
+			nvm --silent use $nvm_default_version &> /dev/null
+		end
 	end
 end
 
@@ -21,13 +33,20 @@ if set --query SSH_TTY; and type --quiet tmux; and not set --query TMUX
 	exec tmux attach
 end
 
-# Some commands that we'll run (e.g. fisher) will invoke fish, causing this file to be processed recursively
-# Guard against that situation with an environment variable
+################################################
+# Set up guard environment variable to prevent recursive invocations
+#
+# Some commands that we'll run (e.g. fisher) will invoke fish, causing this file to be processed recursively. Guard against that situation with an environment variable
+################################################
 if set --query ALREADY_PROCESSING_FISH_CONFIG
 	exit
 else
 	set --export ALREADY_PROCESSING_FISH_CONFIG 1
 end
+
+###############################################
+# Section: Configure interactive sessions
+###############################################
 
 set -g fish_key_bindings fish_vi_key_bindings
 set fish_term24bit 1
@@ -37,6 +56,9 @@ abbr --add --position command gbD git branch -D
 abbr --add --position command vi emacs --no-window-system
 abbr --add --position command vim emacs --no-window-system
 
+######################
+# Section: Display information to user
+######################
 if not type --quiet fisher
 	echo "Plugins will not be available for fish until fisher is installed"
 else
@@ -47,10 +69,7 @@ else
 	if not type --quiet nvm
 		echo "nvm is not installed. Please run fisher update"
 	else
-		echo "NodeJS versions:"
-		nvm ls
-		echo ""
-		echo "Installed npm packages for current version:"
+		echo "nvm: $(nvm current), globally installed packages:"
 		npm ls -g
 	end
 end
@@ -62,11 +81,14 @@ else
 	echo "Emacs: $(emacs --version | head -n 1)"
 end
 
-# Clean up guard environment variable
-set --erase ALREADY_PROCESSING_FISH_CONFIG 1
-
 echo ""
 echo "Available abbreviations:"
 abbr --show
 
 echo ""
+
+####################################
+# Clean up guard environment variable
+####################################
+set --erase ALREADY_PROCESSING_FISH_CONFIG 1
+
