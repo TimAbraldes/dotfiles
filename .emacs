@@ -13,7 +13,38 @@
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
 
-;; use-package will load the package if it is not already loaded, and :ensure means that it will download if not already present
+;; This is here so that GUI Emacs inherits PATH from shell
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize))
+
+(use-package treesit-auto
+  :ensure t
+  :custom
+  (treesit-auto-install 'prompt) ; 'prompt, t (always), or nil (never)
+  :config
+  (treesit-auto-add-to-auto-mode-alist '(typescript tsx javascript))
+  (global-treesit-auto-mode))
+
+(dolist (hook '(typescript-ts-mode-hook
+                tsx-ts-mode-hook
+                js-ts-mode-hook
+                js-jsx-ts-mode-hook))
+  (add-hook hook #'eglot-ensure))
+
+(with-eval-after-load 'eglot
+  (add-to-list 'eglot-server-programs
+               '((typescript-ts-mode tsx-ts-mode js-ts-mode js-jsx-ts-mode)
+                 . ("typescript-language-server" "--stdio"))))
+
+(use-package corfu
+  :ensure t
+  :custom
+  (corfu-auto t)     ; popup without needing to press a key
+  :init
+  (global-corfu-mode))
+
 (use-package evil
   :ensure t)
 (use-package auctex
